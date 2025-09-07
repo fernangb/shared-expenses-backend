@@ -10,16 +10,27 @@ import { CreateGroupUseCase } from '../../application/use-cases/create-group/cre
 import { UserModule } from 'src/modules/users/infra/http/user.module';
 import { AddGroupMemberUseCase } from '../../application/use-cases/add-member/add-group-member.use-case';
 import { AddGroupMemberController } from './controllers/add-group-member.controller';
+import { FindGroupMembersController } from './controllers/find-group-members.controller';
+import { FindUserGroupsController } from './controllers/find-user-groups.controller';
+import { FindGroupMembersUseCase } from '../../application/use-cases/find-group-members/find-group-members.use-case';
+import { FindUserGroupsUseCase } from '../../application/use-cases/find-user-groups/find-user-groups.use-case';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([TypeormGroupModel, TypeormGroupMemberModel]),
     UserModule,
   ],
-  controllers: [AddGroupMemberController, CreateGroupController],
+  controllers: [
+    AddGroupMemberController,
+    CreateGroupController,
+    FindGroupMembersController,
+    FindUserGroupsController,
+  ],
   providers: [
     AddGroupMemberUseCase,
     CreateGroupUseCase,
+    FindGroupMembersUseCase,
+    FindUserGroupsUseCase,
     {
       provide: RepositoryEnum.GROUP,
       useClass: TypeormGroupRepository,

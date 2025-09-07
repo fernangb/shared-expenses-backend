@@ -25,4 +25,8 @@ export class TypeormGroupMapper {
       updatedAt: entity.updatedAt,
     } as TypeormGroupModel;
   }
+
+  static toEntityList(list: TypeormGroupModel[]): GroupEntity[] {
+    return list.map((model) => TypeormGroupMapper.toEntity(model));
+  }
 }

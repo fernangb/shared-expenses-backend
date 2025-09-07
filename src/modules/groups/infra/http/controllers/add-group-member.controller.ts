@@ -9,7 +9,7 @@ import { AddGroupMemberUseCase } from 'src/modules/groups/application/use-cases/
 import { AddGroupMemberInputDTO } from '../dtos/add-group-member.dto';
 
 @Controller('groups')
-@ApiTags('Group')
+@ApiTags('Groups')
 export class AddGroupMemberController {
   constructor(private readonly useCase: AddGroupMemberUseCase) {}
 
