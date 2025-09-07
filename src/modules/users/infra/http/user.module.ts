@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeormUserRepository } from '../../infra/database/typeorm/repositories/typeorm-user.repository';
+import { TypeormUserModel } from '../../infra/database/typeorm/models/typeorm-user.model';
 import { RepositoryEnum } from '../../../../shared/enums/repositories';
 import { ServiceEnum } from 'src/shared/enums/services';
-import { TypeormUserRepository } from 'src/modules/users/infra/database/typeorm/repositories/typeorm-user.repository';
-import { TypeormUserModel } from 'src/modules/users/infra/database/typeorm/models/typeorm-user.model';
-import { UserService } from 'src/modules/users/application/services/user.service';
+import { UserService } from '../../application/services/user.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TypeormUserModel])],

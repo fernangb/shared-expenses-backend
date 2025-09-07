@@ -4,13 +4,13 @@ import {
   CreateGroupOutputDTO,
 } from '../../../infra/http/dtos/create-group.dto';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { IUserService } from 'src/modules/customers/domain/services/user.service';
 import { GroupEntity } from 'src/modules/groups/domain/entities/group.entity';
 import { IGroupRepository } from 'src/modules/groups/domain/repositories/group.repository';
 import { IGroupMemberRepository } from 'src/modules/groups/domain/repositories/group-member.repository';
 import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
 import { ServiceEnum } from 'src/shared/enums/services';
 import { RepositoryEnum } from 'src/shared/enums/repositories';
+import { IUserService } from 'src/modules/users/domain/services/user.service';
 
 @Injectable()
 export class CreateGroupUseCase
