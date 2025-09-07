@@ -1,14 +1,14 @@
-import { IBaseUseCase } from 'src/shared/use-cases/base.use-case';
+import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { IGroupRepository } from 'src/modules/groups/domain/repositories/group.repository';
-import { ServiceEnum } from 'src/shared/enums/services';
-import { RepositoryEnum } from 'src/shared/enums/repositories';
-import { IUserService } from 'src/modules/users/domain/services/user.service';
+import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
+import { ServiceEnum } from '../../../../../shared/enums/services';
+import { RepositoryEnum } from '../../../../../shared/enums/repositories';
+import { IUserService } from '../../../../../modules/users/domain/services/user.service';
 import {
   FindGroupMembersInputDTO,
   FindGroupMembersOutputDTO,
-} from 'src/modules/groups/infra/http/dtos/find-group-members.dto';
-import { IGroupMemberRepository } from 'src/modules/groups/domain/repositories/group-member.repository';
+} from '../../../../../modules/groups/infra/http/dtos/find-group-members.dto';
+import { IGroupMemberRepository } from '../../../../../modules/groups/domain/repositories/group-member.repository';
 
 @Injectable()
 export class FindGroupMembersUseCase

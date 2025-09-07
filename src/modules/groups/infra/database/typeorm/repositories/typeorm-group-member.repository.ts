@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
-import { IGroupMemberRepository } from 'src/modules/groups/domain/repositories/group-member.repository';
+import { GroupMemberEntity } from '../../../../../../modules/groups/domain/entities/group-member.entity';
+import { IGroupMemberRepository } from '../../../../../../modules/groups/domain/repositories/group-member.repository';
 import { Repository } from 'typeorm';
 import { TypeormGroupMemberMapper } from '../mappers/typeorm-group-member.mapper';
 import { TypeormGroupMemberModel } from '../models/typeorm-group-member.model';

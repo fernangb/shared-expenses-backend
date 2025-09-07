@@ -1,4 +1,4 @@
-import { UserAuthEntity } from 'src/modules/auth/domain/entities/user-auth.entity';
+import { UserAuthEntity } from '../../../../../../modules/auth/domain/entities/user-auth.entity';
 import { TypeormUserAuthModel } from '../models/typeorm-user-auth.model';
 
 export class TypeormUserAuthMapper {

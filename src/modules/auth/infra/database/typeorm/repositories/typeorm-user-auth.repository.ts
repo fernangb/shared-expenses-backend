@@ -1,9 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeormUserAuthModel } from '../models/typeorm-user-auth.model';
-import { IUserAuthRepository } from 'src/modules/auth/domain/repositories/user-auth.repository';
+import { IUserAuthRepository } from '../../../../../../modules/auth/domain/repositories/user-auth.repository';
 import { TypeormUserAuthMapper } from '../mappers/typeorm-user-auth.mapper';
-import { UserAuthEntity } from 'src/modules/auth/domain/entities/user-auth.entity';
+import { UserAuthEntity } from '../../../../../../modules/auth/domain/entities/user-auth.entity';
 
 export class TypeormUserAuthRepository implements IUserAuthRepository {
   constructor(

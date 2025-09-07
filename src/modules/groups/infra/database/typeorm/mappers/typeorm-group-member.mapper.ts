@@ -1,4 +1,4 @@
-import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
+import { GroupMemberEntity } from '../../../../../../modules/groups/domain/entities/group-member.entity';
 import { TypeormGroupMemberModel } from '../models/typeorm-group-member.model';
 
 export class TypeormGroupMemberMapper {

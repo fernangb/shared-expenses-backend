@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
-import { IUserRepository } from 'src/modules/users/domain/repositories/user.repository';
-import { IUserService } from 'src/modules/users/domain/services/user.service';
-import { RepositoryEnum } from 'src/shared/enums/repositories';
+import { UserEntity } from '../../../../modules/users/domain/entities/user.entity';
+import { IUserRepository } from '../../../../modules/users/domain/repositories/user.repository';
+import { IUserService } from '../../../../modules/users/domain/services/user.service';
+import { RepositoryEnum } from '../../../../shared/enums/repositories';
 
 @Injectable()
 export class UserAuthService implements IUserService {

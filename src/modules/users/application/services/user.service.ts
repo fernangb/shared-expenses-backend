@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { IUserService } from '../../domain/services/user.service';
 import { IUserRepository } from '../../domain/repositories/user.repository';
-import { RepositoryEnum } from 'src/shared/enums/repositories';
+import { RepositoryEnum } from '../../../../shared/enums/repositories';
 
 @Injectable()
 export class UserService implements IUserService {

@@ -1,5 +1,8 @@
-import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
-import { BaseEntity, BaseEntityProps } from 'src/shared/entities/base.entity';
+import { UserEntity } from '../../../../modules/users/domain/entities/user.entity';
+import {
+  BaseEntity,
+  BaseEntityProps,
+} from '../../../../shared/entities/base.entity';
 
 interface UserAuthProps extends BaseEntityProps {
   user: UserEntity;

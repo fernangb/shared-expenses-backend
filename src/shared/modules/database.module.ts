@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeormUserAuthModel } from 'src/modules/auth/infra/database/typeorm/models/typeorm-user-auth.model';
-import { TypeormGroupMemberModel } from 'src/modules/groups/infra/database/typeorm/models/typeorm-group-member.model';
-import { TypeormGroupModel } from 'src/modules/groups/infra/database/typeorm/models/typeorm-group.model';
-import { TypeormUserModel } from 'src/modules/users/infra/database/typeorm/models/typeorm-user.model';
+import { TypeormUserAuthModel } from '../../modules/auth/infra/database/typeorm/models/typeorm-user-auth.model';
+import { TypeormGroupMemberModel } from '../../modules/groups/infra/database/typeorm/models/typeorm-group-member.model';
+import { TypeormGroupModel } from '../../modules/groups/infra/database/typeorm/models/typeorm-group.model';
+import { TypeormUserModel } from '../../modules/users/infra/database/typeorm/models/typeorm-user.model';
 
 @Module({
   imports: [

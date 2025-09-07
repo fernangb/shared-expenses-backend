@@ -1,4 +1,7 @@
-import { BaseEntityProps, BaseEntity } from 'src/shared/entities/base.entity';
+import {
+  BaseEntityProps,
+  BaseEntity,
+} from '../../../../shared/entities/base.entity';
 
 interface GroupProps extends BaseEntityProps {
   name: string;

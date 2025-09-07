@@ -1,4 +1,4 @@
-import { Email } from 'src/shared/value-objects/email.vo';
+import { Email } from '../../../../shared/value-objects/email.vo';
 import {
   BaseEntity,
   BaseEntityProps,

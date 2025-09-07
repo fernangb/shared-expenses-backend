@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RegisterInputDTO } from '../dtos/register.dto';
-import { RegisterUseCase } from 'src/modules/auth/application/use-cases/register/register.use-case';
+import { RegisterUseCase } from '../../../../../modules/auth/application/use-cases/register/register.use-case';
 @Controller('auth')
 @ApiTags('Auth')
 export class RegisterController {

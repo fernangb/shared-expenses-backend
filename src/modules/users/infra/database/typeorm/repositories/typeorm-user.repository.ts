@@ -2,8 +2,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeormUserModel } from '../models/typeorm-user.model';
 import { TypeormUserMapper } from '../mappers/typeorm-user.mapper';
-import { IUserRepository } from 'src/modules/users/domain/repositories/user.repository';
-import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
+import { IUserRepository } from '../../../../../../modules/users/domain/repositories/user.repository';
+import { UserEntity } from '../../../../../../modules/users/domain/entities/user.entity';
 
 export class TypeormUserRepository implements IUserRepository {
   constructor(

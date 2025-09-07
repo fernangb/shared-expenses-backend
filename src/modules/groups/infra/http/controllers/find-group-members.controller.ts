@@ -5,7 +5,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindGroupMembersUseCase } from 'src/modules/groups/application/use-cases/find-group-members/find-group-members.use-case';
+import { FindGroupMembersUseCase } from '../../../../../modules/groups/application/use-cases/find-group-members/find-group-members.use-case';
 
 @Controller('groups')
 @ApiTags('Groups')

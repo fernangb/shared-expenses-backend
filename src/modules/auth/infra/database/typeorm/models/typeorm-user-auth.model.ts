@@ -1,4 +1,4 @@
-import { TypeormUserModel } from 'src/modules/users/infra/database/typeorm/models/typeorm-user.model';
+import { TypeormUserModel } from '../../../../../../modules/users/infra/database/typeorm/models/typeorm-user.model';
 import {
   Column,
   CreateDateColumn,

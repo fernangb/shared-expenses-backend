@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormUserRepository } from '../../infra/database/typeorm/repositories/typeorm-user.repository';
 import { TypeormUserModel } from '../../infra/database/typeorm/models/typeorm-user.model';
 import { RepositoryEnum } from '../../../../shared/enums/repositories';
-import { ServiceEnum } from 'src/shared/enums/services';
+import { ServiceEnum } from '../../../../shared/enums/services';
 import { UserService } from '../../application/services/user.service';
 
 @Module({

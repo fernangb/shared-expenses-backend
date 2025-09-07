@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { sign, verify } from 'jsonwebtoken';
-import { AuthConfig } from 'src/modules/auth/config/auth.config';
-import ITokenProvider from 'src/modules/auth/domain/providers/token.provider';
+import { AuthConfig } from '../../../../../modules/auth/config/auth.config';
+import ITokenProvider from '../../../../../modules/auth/domain/providers/token.provider';
 
 export default class JSONWebTokenProvider implements ITokenProvider {
   validateToken(token): boolean {
@@ -9,10 +9,14 @@ export default class JSONWebTokenProvider implements ITokenProvider {
 
     const jwt = AuthConfig.getJWT();
 
-    const decoded = verify(token, jwt.secret);
+    try {
+      const decoded = verify(token, jwt.secret);
 
-    if (!decoded) throw new BadRequestException('Invalid token');
-    return true;
+      if (!decoded) throw new BadRequestException('Invalid token');
+      return true;
+    } catch {
+      throw new BadRequestException('Invalid token');
+    }
   }
 
   createToken(userId: string): string {

@@ -1,4 +1,4 @@
-import { GroupEntity } from 'src/modules/groups/domain/entities/group.entity';
+import { GroupEntity } from '../../../../../../modules/groups/domain/entities/group.entity';
 import {
   Column,
   CreateDateColumn,

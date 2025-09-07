@@ -1,17 +1,17 @@
-import { IBaseUseCase } from 'src/shared/use-cases/base.use-case';
+import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import {
   RegisterInputDTO,
   RegisterOutputDTO,
-} from 'src/modules/auth/infra/http/dtos/register.dto';
-import { IUserService } from 'src/modules/users/domain/services/user.service';
-import { ServiceEnum } from 'src/shared/enums/services';
-import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
-import { RepositoryEnum } from 'src/shared/enums/repositories';
-import { IUserAuthRepository } from 'src/modules/auth/domain/repositories/user-auth.repository';
-import { UserAuthEntity } from 'src/modules/auth/domain/entities/user-auth.entity';
-import IHashProvider from 'src/modules/auth/domain/providers/hash.provider';
-import { ProviderEnum } from 'src/shared/enums/providers';
+} from '../../../../../modules/auth/infra/http/dtos/register.dto';
+import { IUserService } from '../../../../../modules/users/domain/services/user.service';
+import { ServiceEnum } from '../../../../../shared/enums/services';
+import { UserEntity } from '../../../../../modules/users/domain/entities/user.entity';
+import { RepositoryEnum } from '../../../../../shared/enums/repositories';
+import { IUserAuthRepository } from '../../../../../modules/auth/domain/repositories/user-auth.repository';
+import { UserAuthEntity } from '../../../../../modules/auth/domain/entities/user-auth.entity';
+import IHashProvider from '../../../../../modules/auth/domain/providers/hash.provider';
+import { ProviderEnum } from '../../../../../shared/enums/providers';
 
 @Injectable()
 export class RegisterUseCase

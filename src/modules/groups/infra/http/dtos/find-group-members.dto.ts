@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsString } from 'class-validator';
-import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
-import { GroupEntity } from 'src/modules/groups/domain/entities/group.entity';
+import { GroupMemberEntity } from '../../../../../modules/groups/domain/entities/group-member.entity';
+import { GroupEntity } from '../../../../../modules/groups/domain/entities/group.entity';
 
 export class FindGroupMembersInputDTO {
   @ApiProperty({ example: '1' })

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsObject, IsString } from 'class-validator';
-import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
+import { UserEntity } from '../../../../../modules/users/domain/entities/user.entity';
 
 export class LoginInputDTO {
   @ApiProperty({ example: 'johndoe@email.com' })
