@@ -8,11 +8,11 @@ import { TypeormUserAuthRepository } from '../database/typeorm/repositories/type
 import { RepositoryEnum } from 'src/shared/enums/repositories';
 import { ProviderEnum } from 'src/shared/enums/providers';
 import BCryptHashProvider from '../providers/hash/bcrypt-hash.provider';
-import { UserModule } from 'src/modules/customers/infra/http/user.module';
 import { TokenModule } from '../providers/token/token.module';
 import JSONWebTokenProvider from '../providers/token/json-web-token.provider';
 import { LoginController } from './controllers/login.controller';
 import { LoginUseCase } from '../../application/use-cases/login/login.use-case';
+import { UserModule } from 'src/modules/users/infra/http/user.module';
 
 @Module({
   imports: [
