@@ -12,7 +12,7 @@ import { RegisterUseCase } from 'src/modules/auth/application/use-cases/register
 export class RegisterController {
   constructor(private readonly useCase: RegisterUseCase) {}
 
-  @Post()
+  @Post('/register')
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({
     status: 201,

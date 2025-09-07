@@ -16,4 +16,10 @@ export class TypeormGroupRepository implements IGroupRepository {
 
     await this.repository.save(this.repository.create(model));
   }
+
+  async findById(id: string): Promise<GroupEntity> {
+    const model = await this.repository.findOne({ where: { id } });
+
+    return TypeormGroupMapper.toEntity(model);
+  }
 }
