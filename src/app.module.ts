@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './shared/modules/database.module';
-import { GroupModule } from './apps/group-service/application/modules/group.module';
-import { UserModule } from './apps/customer-service/application/modules/user.module';
+import { GroupModule } from './modules/groups/infra/http/group.module';
+import { UserModule } from './modules/customers/infra/http/user.module';
 
 @Module({
   imports: [

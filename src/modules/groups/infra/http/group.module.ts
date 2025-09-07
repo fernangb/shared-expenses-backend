@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CreateGroupController } from '../controllers/create-group-controller';
-import { CreateGroupUseCase } from '../use-cases/create-group/create-group.use-case';
+import { CreateGroupController } from '../../infra/http/controllers/create-group-controller';
 import { RepositoryEnum } from 'src/shared/enums/repositories';
 import { TypeormGroupModel } from '../../infra/database/typeorm/models/typeorm-group.model';
 import { TypeormGroupMemberModel } from '../../infra/database/typeorm/models/typeorm-group-member.model';
 import { TypeormGroupRepository } from '../../infra/database/typeorm/repositories/typeorm-group.repository';
 import { TypeormGroupMemberRepository } from '../../infra/database/typeorm/repositories/typeorm-group-member.repository';
-import { UserModule } from 'src/apps/customer-service/application/modules/user.module';
+import { UserModule } from 'src/modules/customers/infra/http/user.module';
+import { CreateGroupUseCase } from '../../application/use-cases/create-group/create-group.use-case';
 
 @Module({
   imports: [

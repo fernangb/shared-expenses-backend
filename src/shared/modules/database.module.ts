@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeormUserModel } from 'src/apps/customer-service/infra/database/typeorm/models/typeorm-user.model';
-import { TypeormGroupMemberModel } from 'src/apps/group-service/infra/database/typeorm/models/typeorm-group-member.model';
-import { TypeormGroupModel } from 'src/apps/group-service/infra/database/typeorm/models/typeorm-group.model';
+import { TypeormUserModel } from 'src/modules/customers/infra/database/typeorm/models/typeorm-user.model';
+import { TypeormGroupMemberModel } from 'src/modules/groups/infra/database/typeorm/models/typeorm-group-member.model';
+import { TypeormGroupModel } from 'src/modules/groups/infra/database/typeorm/models/typeorm-group.model';
 
 @Module({
   imports: [

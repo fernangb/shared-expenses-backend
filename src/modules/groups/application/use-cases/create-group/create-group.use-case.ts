@@ -2,13 +2,13 @@ import { IBaseUseCase } from 'src/shared/use-cases/base.use-case';
 import {
   CreateGroupInputDTO,
   CreateGroupOutputDTO,
-} from '../../dtos/create-group.dto';
+} from '../../../infra/http/dtos/create-group.dto';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { IUserService } from 'src/apps/customer-service/domain/services/user.service';
-import { GroupEntity } from 'src/apps/group-service/domain/entities/group.entity';
-import { IGroupRepository } from 'src/apps/group-service/domain/repositories/group.repository';
-import { IGroupMemberRepository } from 'src/apps/group-service/domain/repositories/group-member.repository';
-import { GroupMemberEntity } from 'src/apps/group-service/domain/entities/group-member.entity';
+import { IUserService } from 'src/modules/customers/domain/services/user.service';
+import { GroupEntity } from 'src/modules/groups/domain/entities/group.entity';
+import { IGroupRepository } from 'src/modules/groups/domain/repositories/group.repository';
+import { IGroupMemberRepository } from 'src/modules/groups/domain/repositories/group-member.repository';
+import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
 import { ServiceEnum } from 'src/shared/enums/services';
 import { RepositoryEnum } from 'src/shared/enums/repositories';
 

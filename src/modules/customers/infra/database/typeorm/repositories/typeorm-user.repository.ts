@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/apps/customer-service/domain/entities/user.entity';
-import { IUserRepository } from 'src/apps/customer-service/domain/repositories/user.repository';
+import { UserEntity } from 'src/modules/customers/domain/entities/user.entity';
+import { IUserRepository } from 'src/modules/customers/domain/repositories/user.repository';
 import { Repository } from 'typeorm';
 import { TypeormUserModel } from '../models/typeorm-user.model';
 import { TypeormUserMapper } from '../mappers/typeorm-user.mapper';
