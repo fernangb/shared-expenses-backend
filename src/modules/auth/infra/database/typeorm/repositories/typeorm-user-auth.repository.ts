@@ -16,4 +16,10 @@ export class TypeormUserAuthRepository implements IUserAuthRepository {
 
     await this.repository.save(this.repository.create(model));
   }
+
+  async findByEmail(email: string): Promise<UserAuthEntity> {
+    const model = await this.repository.findOne({ where: { user: { email } } });
+
+    return TypeormUserAuthMapper.toEntity(model);
+  }
 }

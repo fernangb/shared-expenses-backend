@@ -9,15 +9,21 @@ import { RepositoryEnum } from 'src/shared/enums/repositories';
 import { ProviderEnum } from 'src/shared/enums/providers';
 import BCryptHashProvider from '../providers/hash/bcrypt-hash.provider';
 import { UserModule } from 'src/modules/customers/infra/http/user.module';
+import { TokenModule } from '../providers/token/token.module';
+import JSONWebTokenProvider from '../providers/token/json-web-token.provider';
+import { LoginController } from './controllers/login.controller';
+import { LoginUseCase } from '../../application/use-cases/login/login.use-case';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([TypeormUserAuthModel]),
     UserModule,
     HashModule,
+    TokenModule,
   ],
-  controllers: [RegisterController],
+  controllers: [LoginController, RegisterController],
   providers: [
+    LoginUseCase,
     RegisterUseCase,
     {
       provide: RepositoryEnum.USER_AUTH,
@@ -26,6 +32,10 @@ import { UserModule } from 'src/modules/customers/infra/http/user.module';
     {
       provide: ProviderEnum.HASH,
       useClass: BCryptHashProvider,
+    },
+    {
+      provide: ProviderEnum.TOKEN,
+      useClass: JSONWebTokenProvider,
     },
   ],
   exports: [],
