@@ -1,5 +1,5 @@
 import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
 import { ServiceEnum } from '../../../../../shared/enums/services';
 import { RepositoryEnum } from '../../../../../shared/enums/repositories';
@@ -8,6 +8,7 @@ import {
   FindUserGroupsInputDTO,
   FindUserGroupsOutputDTO,
 } from '../../../../../modules/groups/infra/http/dtos/find-user-groups.dto';
+import { UserNotExistsError } from 'src/modules/users/application/errors/user-not-exists.error';
 
 @Injectable()
 export class FindUserGroupsUseCase
@@ -25,7 +26,7 @@ export class FindUserGroupsUseCase
   }: FindUserGroupsInputDTO): Promise<FindUserGroupsOutputDTO> {
     const user = await this.userService.findById(userId);
 
-    if (!user) throw new BadRequestException('User not exists');
+    if (!user) throw new UserNotExistsError();
 
     const groups = await this.groupRepository.findByUserId(userId);
 

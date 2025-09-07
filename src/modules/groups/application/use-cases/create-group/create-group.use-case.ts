@@ -3,7 +3,7 @@ import {
   CreateGroupInputDTO,
   CreateGroupOutputDTO,
 } from '../../../infra/http/dtos/create-group.dto';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { GroupEntity } from '../../../../../modules/groups/domain/entities/group.entity';
 import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
 import { IGroupMemberRepository } from '../../../../../modules/groups/domain/repositories/group-member.repository';
@@ -11,6 +11,7 @@ import { GroupMemberEntity } from '../../../../../modules/groups/domain/entities
 import { ServiceEnum } from '../../../../../shared/enums/services';
 import { RepositoryEnum } from '../../../../../shared/enums/repositories';
 import { IUserService } from '../../../../../modules/users/domain/services/user.service';
+import { UserNotExistsError } from '../../../../../modules/users/application/errors/user-not-exists.error';
 
 @Injectable()
 export class CreateGroupUseCase
@@ -31,7 +32,7 @@ export class CreateGroupUseCase
   }: CreateGroupInputDTO): Promise<CreateGroupOutputDTO> {
     const user = await this.userService.findById(userId);
 
-    if (!user) throw new BadRequestException('User not exists');
+    if (!user) throw new UserNotExistsError();
 
     const group = new GroupEntity({ name, createdUserId: userId });
 

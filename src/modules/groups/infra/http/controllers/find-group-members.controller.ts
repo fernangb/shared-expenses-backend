@@ -6,6 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FindGroupMembersUseCase } from '../../../../../modules/groups/application/use-cases/find-group-members/find-group-members.use-case';
+import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
 
 @Controller('groups')
 @ApiTags('Groups')
@@ -20,6 +21,7 @@ export class FindGroupMembersController {
   })
   @ApiBadRequestResponse({
     description: 'It happens when some data is invalid',
+    type: BaseErrorOutput,
   })
   async execute(
     @Param('groupId') groupId: string,

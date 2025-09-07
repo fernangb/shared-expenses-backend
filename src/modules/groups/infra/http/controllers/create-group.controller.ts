@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';
 import { CreateGroupUseCase } from '../../../application/use-cases/create-group/create-group.use-case';
 import { CreateGroupInputDTO } from '../dtos/create-group.dto';
+import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
 
 @Controller('groups')
 @ApiTags('Groups')
@@ -21,6 +22,7 @@ export class CreateGroupController {
   })
   @ApiBadRequestResponse({
     description: 'It happens when some data is invalid',
+    type: BaseErrorOutput,
   })
   async create(@Body() createUserDto: CreateGroupInputDTO): Promise<void> {
     await this.useCase.handle(createUserDto);

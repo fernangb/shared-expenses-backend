@@ -1,5 +1,5 @@
 import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   RegisterInputDTO,
   RegisterOutputDTO,
@@ -12,6 +12,8 @@ import { IUserAuthRepository } from '../../../../../modules/auth/domain/reposito
 import { UserAuthEntity } from '../../../../../modules/auth/domain/entities/user-auth.entity';
 import IHashProvider from '../../../../../modules/auth/domain/providers/hash.provider';
 import { ProviderEnum } from '../../../../../shared/enums/providers';
+import { UserAlreadyExistsError } from '../../../../../modules/users/application/errors/user-already-exists.error';
+import { PasswordNotMatchError } from '../../errors/password-not-match.error';
 
 @Injectable()
 export class RegisterUseCase
@@ -36,14 +38,13 @@ export class RegisterUseCase
   }: RegisterInputDTO): Promise<RegisterOutputDTO> {
     const hasUserByEmail = await this.userService.findByEmail(email);
 
-    if (hasUserByEmail) throw new BadRequestException('User already exists');
+    if (hasUserByEmail) throw new UserAlreadyExistsError();
 
     const hasUserByPhone = await this.userService.findByPhone(phone);
 
-    if (hasUserByPhone) throw new BadRequestException('User already exists');
+    if (hasUserByPhone) throw new UserAlreadyExistsError();
 
-    if (password !== confirmPassword)
-      throw new BadRequestException('This password does not match');
+    if (password !== confirmPassword) throw new PasswordNotMatchError();
 
     const hashedPassword = await this.hashProvider.createHash(password);
 

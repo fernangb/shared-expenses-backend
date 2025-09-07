@@ -1,5 +1,5 @@
 import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RepositoryEnum } from '../../../../../shared/enums/repositories';
 import { IUserAuthRepository } from '../../../../../modules/auth/domain/repositories/user-auth.repository';
 import IHashProvider from '../../../../../modules/auth/domain/providers/hash.provider';
@@ -9,6 +9,7 @@ import {
   LoginOutputDTO,
 } from '../../../../../modules/auth/infra/http/dtos/login.dto';
 import ITokenProvider from '../../../../../modules/auth/domain/providers/token.provider';
+import { InvalidCredentialsError } from '../../errors/invalid-credentials.error';
 
 @Injectable()
 export class LoginUseCase
@@ -25,14 +26,14 @@ export class LoginUseCase
 
   async handle({ email, password }: LoginInputDTO): Promise<LoginOutputDTO> {
     const userAuth = await this.userAuthRepository.findByEmail(email);
-    if (!userAuth) throw new BadRequestException('Invalid credentials');
+    if (!userAuth) throw new InvalidCredentialsError();
 
     const isValidPassword = await this.hashProvider.compareHash(
       password,
       userAuth.password,
     );
 
-    if (!isValidPassword) throw new BadRequestException('Invalid credentials');
+    if (!isValidPassword) throw new InvalidCredentialsError();
 
     const token = this.tokenProvider.createToken(userAuth.id);
 

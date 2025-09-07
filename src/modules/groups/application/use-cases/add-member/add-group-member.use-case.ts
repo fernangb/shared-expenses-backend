@@ -1,5 +1,5 @@
 import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
 import { IGroupMemberRepository } from '../../../../../modules/groups/domain/repositories/group-member.repository';
 import { GroupMemberEntity } from '../../../../../modules/groups/domain/entities/group-member.entity';
@@ -10,6 +10,12 @@ import {
   AddGroupMemberInputDTO,
   AddGroupMemberOutputDTO,
 } from '../../../../../modules/groups/infra/http/dtos/add-group-member.dto';
+import { GroupNotExistsError } from '../../errors/group-not-exists.error';
+import { InvalidGroupError } from '../../errors/inavlid-group.error';
+import { OnlyAdminCanAddUserError } from '../../errors/only-admin-can-add-user.error';
+import { GroupMemberNotExistsError } from '../../errors/group-member-not-exists.error';
+import { AddYourselfError } from '../../errors/add-yourself-error';
+import { AlreadyAddedError } from '../../errors/already-added.error';
 
 @Injectable()
 export class AddGroupMemberUseCase
@@ -31,35 +37,29 @@ export class AddGroupMemberUseCase
   }: AddGroupMemberInputDTO): Promise<AddGroupMemberOutputDTO> {
     const group = await this.groupRepository.findById(groupId);
 
-    if (!group) throw new BadRequestException('This group does not exists');
+    if (!group) throw new GroupNotExistsError();
 
     const requestedGroupMember = await this.groupMemberRepository.findById(
       adminId,
       group.id,
     );
 
-    if (!requestedGroupMember) throw new BadRequestException('Invalid group');
+    if (!requestedGroupMember) throw new InvalidGroupError();
 
-    if (!requestedGroupMember.isAdmin)
-      throw new BadRequestException('Only admin can add users');
+    if (!requestedGroupMember.isAdmin) throw new OnlyAdminCanAddUserError();
 
     const newMember = await this.userService.findByEmail(memberEmail);
 
-    if (!newMember)
-      throw new BadRequestException('This member does not exists');
+    if (!newMember) throw new GroupMemberNotExistsError();
 
-    if (requestedGroupMember.id === newMember.id)
-      throw new BadRequestException('You cannnot add yourself to the group');
+    if (requestedGroupMember.id === newMember.id) throw new AddYourselfError();
 
     const alreadyAddedGroupMember = await this.groupMemberRepository.findById(
       newMember.id,
       group.id,
     );
 
-    if (alreadyAddedGroupMember)
-      throw new BadRequestException(
-        'This member is already added to the group',
-      );
+    if (alreadyAddedGroupMember) throw new AlreadyAddedError();
 
     const groupMember = new GroupMemberEntity({
       group,

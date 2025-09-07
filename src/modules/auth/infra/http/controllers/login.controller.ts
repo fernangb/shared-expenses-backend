@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';
 import { LoginUseCase } from '../../../../../modules/auth/application/use-cases/login/login.use-case';
 import { LoginInputDTO, LoginOutputDTO } from '../dtos/login.dto';
+import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -22,6 +23,7 @@ export class LoginController {
   })
   @ApiBadRequestResponse({
     description: 'It happens when some data is invalid',
+    type: BaseErrorOutput,
   })
   async login(@Body() authDto: LoginInputDTO) {
     return this.loginUseCase.handle(authDto);
