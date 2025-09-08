@@ -5,7 +5,7 @@ import {
   ApiResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
-import { CreateGroupUseCase } from '../../../application/use-cases/create-group/create-group.use-case';
+import { CreateGroupUseCase } from '../../../application/use-cases/create-group.use-case';
 import { CreateGroupInputDTO } from '../dtos/create-group.dto';
 import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
 

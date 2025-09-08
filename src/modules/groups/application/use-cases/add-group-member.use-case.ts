@@ -1,21 +1,21 @@
-import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
+import { IBaseUseCase } from '../../../../shared/use-cases/base.use-case';
 import { Inject, Injectable } from '@nestjs/common';
-import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
-import { IGroupMemberRepository } from '../../../../../modules/groups/domain/repositories/group-member.repository';
-import { GroupMemberEntity } from '../../../../../modules/groups/domain/entities/group-member.entity';
-import { ServiceEnum } from '../../../../../shared/enums/services';
-import { RepositoryEnum } from '../../../../../shared/enums/repositories';
-import { IUserService } from '../../../../../modules/users/domain/services/user.service';
+import { IGroupRepository } from '../../../../modules/groups/domain/repositories/group.repository';
+import { IGroupMemberRepository } from '../../../../modules/groups/domain/repositories/group-member.repository';
+import { GroupMemberEntity } from '../../../../modules/groups/domain/entities/group-member.entity';
+import { ServiceEnum } from '../../../../shared/enums/services';
+import { RepositoryEnum } from '../../../../shared/enums/repositories';
+import { IUserService } from '../../../../modules/users/domain/services/user.service';
 import {
   AddGroupMemberInputDTO,
   AddGroupMemberOutputDTO,
-} from '../../../../../modules/groups/infra/http/dtos/add-group-member.dto';
-import { GroupNotExistsError } from '../../errors/group-not-exists.error';
-import { InvalidGroupError } from '../../errors/inavlid-group.error';
-import { OnlyAdminCanAddUserError } from '../../errors/only-admin-can-add-user.error';
-import { GroupMemberNotExistsError } from '../../errors/group-member-not-exists.error';
-import { AddYourselfError } from '../../errors/add-yourself-error';
-import { AlreadyAddedError } from '../../errors/already-added.error';
+} from '../../../../modules/groups/infra/http/dtos/add-group-member.dto';
+import { GroupNotExistsError } from '../errors/group-not-exists.error';
+import { InvalidGroupError } from '../errors/inavlid-group.error';
+import { OnlyAdminCanAddUserError } from '../errors/only-admin-can-add-user.error';
+import { GroupMemberNotExistsError } from '../errors/group-member-not-exists.error';
+import { AddYourselfError } from '../errors/add-yourself-error';
+import { AlreadyAddedError } from '../errors/already-added.error';
 
 @Injectable()
 export class AddGroupMemberUseCase

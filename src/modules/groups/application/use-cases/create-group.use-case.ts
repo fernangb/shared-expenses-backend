@@ -1,17 +1,17 @@
-import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
+import { IBaseUseCase } from '../../../../shared/use-cases/base.use-case';
 import {
   CreateGroupInputDTO,
   CreateGroupOutputDTO,
-} from '../../../infra/http/dtos/create-group.dto';
+} from '../../infra/http/dtos/create-group.dto';
 import { Inject, Injectable } from '@nestjs/common';
-import { GroupEntity } from '../../../../../modules/groups/domain/entities/group.entity';
-import { IGroupRepository } from '../../../../../modules/groups/domain/repositories/group.repository';
-import { IGroupMemberRepository } from '../../../../../modules/groups/domain/repositories/group-member.repository';
-import { GroupMemberEntity } from '../../../../../modules/groups/domain/entities/group-member.entity';
-import { ServiceEnum } from '../../../../../shared/enums/services';
-import { RepositoryEnum } from '../../../../../shared/enums/repositories';
-import { IUserService } from '../../../../../modules/users/domain/services/user.service';
-import { UserNotExistsError } from '../../../../../modules/users/application/errors/user-not-exists.error';
+import { GroupEntity } from '../../domain/entities/group.entity';
+import { IGroupRepository } from '../../domain/repositories/group.repository';
+import { IGroupMemberRepository } from '../../domain/repositories/group-member.repository';
+import { GroupMemberEntity } from '../../domain/entities/group-member.entity';
+import { ServiceEnum } from '../../../../shared/enums/services';
+import { RepositoryEnum } from '../../../../shared/enums/repositories';
+import { IUserService } from '../../../users/domain/services/user.service';
+import { UserNotExistsError } from '../../../users/application/errors/user-not-exists.error';
 
 @Injectable()
 export class CreateGroupUseCase

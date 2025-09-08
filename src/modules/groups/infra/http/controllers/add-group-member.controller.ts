@@ -5,9 +5,9 @@ import {
   ApiResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
-import { AddGroupMemberUseCase } from '../../../../../modules/groups/application/use-cases/add-member/add-group-member.use-case';
 import { AddGroupMemberInputDTO } from '../dtos/add-group-member.dto';
 import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
+import { AddGroupMemberUseCase } from '../../../../../modules/groups/application/use-cases/add-group-member.use-case';
 
 @Controller('groups')
 @ApiTags('Groups')

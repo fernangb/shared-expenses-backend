@@ -5,7 +5,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindGroupMembersUseCase } from '../../../../../modules/groups/application/use-cases/find-group-members/find-group-members.use-case';
+import { FindGroupMembersUseCase } from '../../../application/use-cases/find-group-members.use-case';
 import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
 
 @Controller('groups')
