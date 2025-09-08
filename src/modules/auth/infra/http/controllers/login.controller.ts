@@ -5,9 +5,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LoginUseCase } from '../../../../../modules/auth/application/use-cases/login/login.use-case';
 import { LoginInputDTO, LoginOutputDTO } from '../dtos/login.dto';
 import { BaseErrorOutput } from '../../../../../shared/errors/base.error';
+import { LoginUseCase } from '../../../../../modules/auth/application/use-cases/login.use-case';
 
 @Controller('auth')
 @ApiTags('Auth')

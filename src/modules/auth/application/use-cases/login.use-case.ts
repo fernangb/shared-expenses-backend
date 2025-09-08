@@ -1,15 +1,15 @@
-import { IBaseUseCase } from '../../../../../shared/use-cases/base.use-case';
+import { IBaseUseCase } from '../../../../shared/use-cases/base.use-case';
 import { Inject, Injectable } from '@nestjs/common';
-import { RepositoryEnum } from '../../../../../shared/enums/repositories';
-import { IUserAuthRepository } from '../../../../../modules/auth/domain/repositories/user-auth.repository';
-import IHashProvider from '../../../../../modules/auth/domain/providers/hash.provider';
-import { ProviderEnum } from '../../../../../shared/enums/providers';
+import { RepositoryEnum } from '../../../../shared/enums/repositories';
+import { IUserAuthRepository } from '../../../../modules/auth/domain/repositories/user-auth.repository';
+import IHashProvider from '../../../../modules/auth/domain/providers/hash.provider';
+import { ProviderEnum } from '../../../../shared/enums/providers';
 import {
   LoginInputDTO,
   LoginOutputDTO,
-} from '../../../../../modules/auth/infra/http/dtos/login.dto';
-import ITokenProvider from '../../../../../modules/auth/domain/providers/token.provider';
-import { InvalidCredentialsError } from '../../errors/invalid-credentials.error';
+} from '../../../../modules/auth/infra/http/dtos/login.dto';
+import ITokenProvider from '../../../../modules/auth/domain/providers/token.provider';
+import { InvalidCredentialsError } from '../errors/invalid-credentials.error';
 
 @Injectable()
 export class LoginUseCase
