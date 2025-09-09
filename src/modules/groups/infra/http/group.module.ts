@@ -14,6 +14,9 @@ import { FindUserGroupsController } from './controllers/find-user-groups.control
 import { FindGroupMembersUseCase } from '../../application/use-cases/find-group-members.use-case';
 import { FindUserGroupsUseCase } from '../../application/use-cases/find-user-groups.use-case';
 import { AddGroupMemberUseCase } from '../../application/use-cases/add-group-member.use-case';
+import { ServiceEnum } from '../../../../shared/enums/services';
+import { GroupService } from '../../application/services/group.service';
+import { GroupMemberService } from '../../application/services/group-member.service';
 
 @Module({
   imports: [
@@ -39,7 +42,15 @@ import { AddGroupMemberUseCase } from '../../application/use-cases/add-group-mem
       provide: RepositoryEnum.GROUP_MEMBER,
       useClass: TypeormGroupMemberRepository,
     },
+    {
+      provide: ServiceEnum.GROUP,
+      useClass: GroupService,
+    },
+    {
+      provide: ServiceEnum.GROUP_MEMBER,
+      useClass: GroupMemberService,
+    },
   ],
-  exports: [],
+  exports: [ServiceEnum.GROUP, ServiceEnum.GROUP_MEMBER],
 })
 export class GroupModule {}
