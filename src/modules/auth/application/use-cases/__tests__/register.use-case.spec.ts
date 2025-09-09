@@ -44,7 +44,7 @@ describe('RegisterUseCase', () => {
     );
   });
 
-  it('deve criar um usuário com sucesso', async () => {
+  it('should register a user', async () => {
     userService.findByEmail.mockResolvedValue(null);
     userService.findByPhone.mockResolvedValue(null);
     hashProvider.createHash.mockResolvedValue('hashedPassword');
@@ -61,7 +61,7 @@ describe('RegisterUseCase', () => {
     );
   });
 
-  it('deve lançar erro se email já existir', async () => {
+  it('should return error if email already exists', async () => {
     userService.findByEmail.mockResolvedValue({} as UserEntity);
 
     await expect(useCase.handle(input)).rejects.toThrow(UserAlreadyExistsError);
@@ -70,7 +70,7 @@ describe('RegisterUseCase', () => {
     expect(userService.findByPhone).not.toHaveBeenCalled();
   });
 
-  it('deve lançar erro se telefone já existir', async () => {
+  it('should return error if phone already exists', async () => {
     userService.findByEmail.mockResolvedValue(null);
     userService.findByPhone.mockResolvedValue({} as UserEntity);
 
@@ -79,7 +79,7 @@ describe('RegisterUseCase', () => {
     expect(userService.findByPhone).toHaveBeenCalledWith(input.phone);
   });
 
-  it('deve lançar erro se as senhas não coincidirem', async () => {
+  it('should return error if passwords does not match', async () => {
     const invalidInput = { ...input, confirmPassword: 'different' };
 
     userService.findByEmail.mockResolvedValue(null);
