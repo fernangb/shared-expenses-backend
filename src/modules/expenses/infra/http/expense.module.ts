@@ -11,6 +11,9 @@ import { TypeormExpenseRepository } from '../database/typeorm/repositories/typeo
 import { TypeormSplitExpenseRepository } from '../database/typeorm/repositories/typeorm-split-expense.repository';
 import { ServiceEnum } from '../../../../shared/enums/services';
 import { SplitExpenseService } from '../../application/services/split-expense.service';
+import { FindGroupExpenseController } from './controllers/find-group-expense.controller';
+import { ExpenseService } from '../../application/services/expense.service';
+import { FindGroupExpenseUseCase } from '../../application/use-cases/find-group-expense.use-case';
 
 @Module({
   imports: [
@@ -18,9 +21,10 @@ import { SplitExpenseService } from '../../application/services/split-expense.se
     UserModule,
     GroupModule,
   ],
-  controllers: [CreateExpenseController],
+  controllers: [CreateExpenseController, FindGroupExpenseController],
   providers: [
     CreateExpenseUseCase,
+    FindGroupExpenseUseCase,
     {
       provide: RepositoryEnum.EXPENSE,
       useClass: TypeormExpenseRepository,
@@ -28,6 +32,10 @@ import { SplitExpenseService } from '../../application/services/split-expense.se
     {
       provide: RepositoryEnum.SPLIT_EXPENSE,
       useClass: TypeormSplitExpenseRepository,
+    },
+    {
+      provide: ServiceEnum.EXPENSE,
+      useClass: ExpenseService,
     },
     {
       provide: ServiceEnum.SPLIT_EXPENSE,

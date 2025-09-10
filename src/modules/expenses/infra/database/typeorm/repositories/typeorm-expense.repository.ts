@@ -16,4 +16,13 @@ export class TypeormExpenseRepository implements IExpenseRepository {
 
     await this.repository.save(this.repository.create(model));
   }
+
+  async findByGroupId(groupId: string): Promise<ExpenseEntity[]> {
+    const models = await this.repository.find({
+      where: { groupId },
+      order: { createdAt: 'DESC' },
+    });
+
+    return TypeormExpenseMapper.toEntityList(models);
+  }
 }

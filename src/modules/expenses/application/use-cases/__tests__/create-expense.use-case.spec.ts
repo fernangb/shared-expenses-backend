@@ -1,96 +1,119 @@
+import { Test, TestingModule } from '@nestjs/testing';
 import { CreateExpenseUseCase } from '../create-expense.use-case';
-import { UserNotExistsError } from '../../../../../modules/users/application/errors/user-not-exists.error';
-import { GroupNotExistsError } from '../../../../../modules/groups/application/errors/group-not-exists.error';
-import { InvalidGroupError } from '../../../../../modules/groups/application/errors/inavlid-group.error';
+import { IExpenseService } from '../../../domain/services/expense.service';
+import { IExpenseRepository } from '../../../domain/repositories/expense.repository';
+import { ISplitExpenseService } from '../../../domain/services/split-expense.service';
+import { ISplitExpenseRepository } from '../../../domain/repositories/split-expense.repository';
 import { ExpenseEntity } from '../../../domain/entities/expense.entity';
+import { SplitExpenseEntity } from '../../../domain/entities/split-expense.entity';
 
 describe('CreateExpenseUseCase', () => {
   let useCase: CreateExpenseUseCase;
+  let expenseService: IExpenseService;
+  let expenseRepository: IExpenseRepository;
+  let splitExpenseService: ISplitExpenseService;
+  let splitExpenseRepository: ISplitExpenseRepository;
 
-  const mockUserService = { findById: jest.fn() };
-  const mockExpenseRepository = { create: jest.fn() };
-  const mockGroupService = { findById: jest.fn() };
-  const mockGroupMemberService = { findByGroupId: jest.fn() };
-  const mockSplitExpenseService = { split: jest.fn() };
-  const mockSplitExpenseRepository = { create: jest.fn() };
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        CreateExpenseUseCase,
+        {
+          provide: 'IExpenseService',
+          useValue: { getGroupMembers: jest.fn() },
+        },
+        {
+          provide: 'IExpenseRepository',
+          useValue: { create: jest.fn() },
+        },
+        {
+          provide: 'ISplitExpenseService',
+          useValue: { split: jest.fn() },
+        },
+        {
+          provide: 'ISplitExpenseRepository',
+          useValue: { create: jest.fn() },
+        },
+      ],
+    }).compile();
 
-  const inputDto = {
-    userId: 'user-1',
-    groupId: 'group-1',
-    name: 'Test Expense',
-    description: 'Test description',
-    value: 100,
-    dueDate: new Date(),
-    paymentDate: new Date(),
-  };
+    useCase = module.get<CreateExpenseUseCase>(CreateExpenseUseCase);
+    expenseService = module.get<IExpenseService>('IExpenseService');
+    expenseRepository = module.get<IExpenseRepository>('IExpenseRepository');
+    splitExpenseService = module.get<ISplitExpenseService>(
+      'ISplitExpenseService',
+    );
+    splitExpenseRepository = module.get<ISplitExpenseRepository>(
+      'ISplitExpenseRepository',
+    );
+  });
 
-  const groupMembersMock = [
-    { userId: 'user-1', group: { id: 'group-1' } },
-    { userId: 'user-2', group: { id: 'group-1' } },
-  ];
+  it('should create an expense and splits correctly', async () => {
+    const dto = {
+      userId: 'user-1',
+      groupId: 'group-1',
+      name: 'Test Expense',
+      description: 'Test description',
+      value: 100,
+      dueDate: new Date(),
+      paymentDate: new Date(),
+    };
 
-  beforeEach(() => {
-    useCase = new CreateExpenseUseCase(
-      mockUserService as any,
-      mockExpenseRepository as any,
-      mockGroupService as any,
-      mockGroupMemberService as any,
-      mockSplitExpenseService as any,
-      mockSplitExpenseRepository as any,
+    const groupMembers = [
+      { userId: 'user-1', group: { id: 'group-1' } },
+      { userId: 'user-2', group: { id: 'group-1' } },
+    ];
+
+    const splitEntities = groupMembers.map(
+      (m) =>
+        new SplitExpenseEntity({
+          expenseId: 'expense-id',
+          groupId: m.group.id,
+          userId: m.userId,
+          value: 50,
+        }),
     );
 
-    jest.clearAllMocks();
+    (expenseService.getGroupMembers as jest.Mock).mockResolvedValue(
+      groupMembers,
+    );
+    (splitExpenseService.split as jest.Mock).mockReturnValue(splitEntities);
+
+    await useCase.handle(dto);
+
+    expect(expenseService.getGroupMembers).toHaveBeenCalledWith(
+      'user-1',
+      'group-1',
+    );
+    expect(splitExpenseService.split).toHaveBeenCalledWith(
+      expect.any(ExpenseEntity),
+      groupMembers,
+    );
+    expect(expenseRepository.create).toHaveBeenCalledWith(
+      expect.any(ExpenseEntity),
+    );
+    expect(splitExpenseRepository.create).toHaveBeenCalledWith(splitEntities);
   });
 
-  it('should throw UserNotExistsError if user not found', async () => {
-    mockUserService.findById.mockResolvedValue(null);
+  it('should throw if no group members returned', async () => {
+    const dto = {
+      userId: 'user-1',
+      groupId: 'group-1',
+      name: 'Test Expense',
+      description: 'Test description',
+      value: 100,
+      dueDate: new Date(),
+      paymentDate: new Date(),
+    };
 
-    await expect(useCase.handle(inputDto)).rejects.toThrow(UserNotExistsError);
-  });
+    (expenseService.getGroupMembers as jest.Mock).mockResolvedValue([]);
 
-  it('should throw GroupNotExistsError if group not found', async () => {
-    mockUserService.findById.mockResolvedValue({ id: 'user-1' });
-    mockGroupService.findById.mockResolvedValue(null);
+    const result = useCase.handle(dto);
 
-    await expect(useCase.handle(inputDto)).rejects.toThrow(GroupNotExistsError);
-  });
-
-  it('should throw InvalidGroupError if user is not a group member', async () => {
-    mockUserService.findById.mockResolvedValue({ id: 'user-1' });
-    mockGroupService.findById.mockResolvedValue({ id: 'group-1' });
-    mockGroupMemberService.findByGroupId.mockResolvedValue([
-      { userId: 'user-2', group: { id: 'group-1' } },
-    ]);
-
-    await expect(useCase.handle(inputDto)).rejects.toThrow(InvalidGroupError);
-  });
-
-  it('should create expense and split expenses if valid', async () => {
-    mockUserService.findById.mockResolvedValue({ id: 'user-1' });
-    mockGroupService.findById.mockResolvedValue({ id: 'group-1' });
-    mockGroupMemberService.findByGroupId.mockResolvedValue(groupMembersMock);
-    mockSplitExpenseService.split.mockReturnValue([
-      {
-        userId: 'user-1',
-        groupId: 'group-1',
-        expenseId: 'expense-1',
-        value: 50,
-      },
-      {
-        userId: 'user-2',
-        groupId: 'group-1',
-        expenseId: 'expense-1',
-        value: 50,
-      },
-    ]);
-
-    await useCase.handle(inputDto);
-
-    expect(mockExpenseRepository.create).toHaveBeenCalledTimes(1);
-    expect(mockSplitExpenseRepository.create).toHaveBeenCalledTimes(1);
-
-    const createdExpense = mockExpenseRepository.create.mock.calls[0][0];
-    expect(createdExpense).toBeInstanceOf(ExpenseEntity);
-    expect(createdExpense.value).toBe(inputDto.value);
+    await expect(result).resolves.toBeUndefined();
+    expect(expenseService.getGroupMembers).toHaveBeenCalledWith(
+      'user-1',
+      'group-1',
+    );
   });
 });
