@@ -106,8 +106,8 @@ describe('AddGroupMemberUseCase', () => {
       id: 'group-id',
     });
     (groupMemberRepository.findById as jest.Mock)
-      .mockResolvedValueOnce({ id: 'admin-id', isAdmin: true }) // admin
-      .mockResolvedValueOnce({ id: 'member-id' }); // already added
+      .mockResolvedValueOnce({ id: 'admin-id', isAdmin: true })
+      .mockResolvedValueOnce({ id: 'member-id' });
     (userService.findByEmail as jest.Mock).mockResolvedValue({
       id: 'member-id',
     });
@@ -120,8 +120,8 @@ describe('AddGroupMemberUseCase', () => {
       id: 'group-id',
     });
     (groupMemberRepository.findById as jest.Mock)
-      .mockResolvedValueOnce({ id: 'admin-id', isAdmin: true }) // admin check
-      .mockResolvedValueOnce(null); // not already added
+      .mockResolvedValueOnce({ id: 'admin-id', isAdmin: true })
+      .mockResolvedValueOnce(null);
     (userService.findByEmail as jest.Mock).mockResolvedValue({
       id: 'member-id',
     });
