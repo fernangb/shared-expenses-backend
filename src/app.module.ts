@@ -5,6 +5,7 @@ import { GroupModule } from './modules/groups/infra/http/group.module';
 import { UserModule } from './modules/users/infra/http/user.module';
 import { AuthModule } from './modules/auth/infra/http/auth.module';
 import { ExpenseModule } from './modules/expenses/infra/http/expense.module';
+import { IdentityModule } from './module/identity/identity.module';
 
 @Module({
   imports: [
