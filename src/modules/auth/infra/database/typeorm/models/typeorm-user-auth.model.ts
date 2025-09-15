@@ -1,19 +1,10 @@
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
 import { TypeormUserModel } from '../../../../../../modules/users/infra/database/typeorm/models/typeorm-user.model';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { UserAuthEntity } from 'src/modules/auth/domain/entities/user-auth.entity';
 
 @Entity({ name: 'user_auth' })
-export class TypeormUserAuthModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormUserAuthModel extends TypeormBaseModel<UserAuthEntity> {
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
@@ -25,10 +16,4 @@ export class TypeormUserAuthModel {
 
   @Column()
   password: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

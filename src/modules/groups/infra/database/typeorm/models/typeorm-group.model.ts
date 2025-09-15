@@ -1,25 +1,12 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { GroupEntity } from 'src/modules/groups/domain/entities/group.entity';
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'groups' })
-export class TypeormGroupModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormGroupModel extends TypeormBaseModel<GroupEntity> {
   @Column()
   name: string;
 
   @Column({ name: 'created_user_id' })
   createdUserId: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

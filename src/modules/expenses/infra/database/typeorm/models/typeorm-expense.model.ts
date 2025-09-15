@@ -1,16 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { ExpenseEntity } from 'src/modules/expenses/domain/entities/expense.entity';
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'expenses' })
-export class TypeormExpenseModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormExpenseModel extends TypeormBaseModel<ExpenseEntity> {
   @Column({ name: 'user_id' })
   userId: string;
 
@@ -31,10 +24,4 @@ export class TypeormExpenseModel {
 
   @Column({ name: 'payment_date', nullable: true })
   paymentDate?: Date;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

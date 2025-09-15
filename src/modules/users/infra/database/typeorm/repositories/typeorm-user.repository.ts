@@ -1,36 +1,26 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { TypeormUserModel } from '../models/typeorm-user.model';
 import { TypeormUserMapper } from '../mappers/typeorm-user.mapper';
-import { IUserRepository } from '../../../../../../modules/users/domain/repositories/user.repository';
 import { UserEntity } from '../../../../../../modules/users/domain/entities/user.entity';
+import { TypeormBaseRepository } from 'src/shared/modules/database/typeorm/typeorm-base.repository';
 
-export class TypeormUserRepository implements IUserRepository {
+export class TypeormUserRepository extends TypeormBaseRepository<TypeormUserModel> {
   constructor(
-    @InjectRepository(TypeormUserModel)
-    private repository: Repository<TypeormUserModel>,
-  ) {}
-
-  async create(entity: UserEntity): Promise<void> {
-    const model = TypeormUserMapper.toModel(entity);
-
-    await this.repository.save(this.repository.create(model));
-  }
-
-  async findById(id: string): Promise<UserEntity> {
-    const model = await this.repository.findOne({ where: { id } });
-
-    return TypeormUserMapper.toEntity(model);
+    @InjectDataSource('users')
+    dataSource: DataSource,
+  ) {
+    super(TypeormUserModel, dataSource.manager);
   }
 
   async findByEmail(email: string): Promise<UserEntity> {
-    const model = await this.repository.findOne({ where: { email } });
+    const model = await this.findOne({ where: { email } });
 
     return TypeormUserMapper.toEntity(model);
   }
 
   async findByPhone(phone: string): Promise<UserEntity> {
-    const model = await this.repository.findOne({ where: { phone } });
+    const model = await this.findOne({ where: { phone } });
 
     return TypeormUserMapper.toEntity(model);
   }

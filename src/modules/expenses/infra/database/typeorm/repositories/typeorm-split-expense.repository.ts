@@ -1,19 +1,13 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { ISplitExpenseRepository } from '../../../../../../modules/expenses/domain/repositories/split-expense.repository';
-import { Repository } from 'typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { TypeormSplitExpenseModel } from '../models/typeorm-split-expense.model';
-import { SplitExpenseEntity } from '../../../../../../modules/expenses/domain/entities/split-expense.entity';
-import { TypeormSplitExpenseMapper } from '../mappers/typeorm-split-expense.mapper';
+import { TypeormBaseRepository } from 'src/shared/modules/database/typeorm/typeorm-base.repository';
 
-export class TypeormSplitExpenseRepository implements ISplitExpenseRepository {
+export class TypeormSplitExpenseRepository extends TypeormBaseRepository<TypeormSplitExpenseModel> {
   constructor(
-    @InjectRepository(TypeormSplitExpenseModel)
-    private repository: Repository<TypeormSplitExpenseModel>,
-  ) {}
-
-  async create(splits: SplitExpenseEntity[]): Promise<void> {
-    const models = TypeormSplitExpenseMapper.toModelList(splits);
-
-    await this.repository.insert(models);
+    @InjectDataSource('split_expenses')
+    dataSource: DataSource,
+  ) {
+    super(TypeormSplitExpenseModel, dataSource.manager);
   }
 }

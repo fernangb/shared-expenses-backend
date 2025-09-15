@@ -1,20 +1,11 @@
 import { GroupEntity } from '../../../../../../modules/groups/domain/entities/group.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { TypeormGroupModel } from './typeorm-group.model';
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
+import { GroupMemberEntity } from 'src/modules/groups/domain/entities/group-member.entity';
 
 @Entity({ name: 'group_members' })
-export class TypeormGroupMemberModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormGroupMemberModel extends TypeormBaseModel<GroupMemberEntity> {
   @Column({ name: 'group_id', type: 'uuid' })
   groupId: string;
 
@@ -29,10 +20,4 @@ export class TypeormGroupMemberModel {
 
   @Column({ name: 'user_id' })
   userId: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

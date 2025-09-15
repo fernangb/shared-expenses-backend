@@ -1,16 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { UserEntity } from 'src/modules/users/domain/entities/user.entity';
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class TypeormUserModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormUserModel extends TypeormBaseModel<UserEntity> {
   @Column({ name: 'first_name' })
   firstName: string;
 
@@ -22,10 +15,4 @@ export class TypeormUserModel {
 
   @Column()
   phone: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

@@ -1,16 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { SplitExpenseEntity } from 'src/modules/expenses/domain/entities/split-expense.entity';
+import { TypeormBaseModel } from 'src/shared/modules/database/typeorm/typeorm-base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'split_expenses' })
-export class TypeormSplitExpenseModel {
-  @PrimaryColumn('uuid')
-  id: string;
-
+export class TypeormSplitExpenseModel extends TypeormBaseModel<SplitExpenseEntity> {
   @Column({ name: 'expense_id' })
   expenseId: string;
 
@@ -22,10 +15,4 @@ export class TypeormSplitExpenseModel {
 
   @Column('decimal', { precision: 10, scale: 2 })
   value: number;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

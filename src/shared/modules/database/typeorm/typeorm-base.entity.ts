@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export abstract class TypeormBaseEntity<T> {
+export abstract class TypeormBaseModel<T> {
   constructor(data: Partial<T>) {
     Object.assign(this, data);
     this.id = this.id || randomUUID();
@@ -26,9 +26,9 @@ export abstract class TypeormBaseEntity<T> {
   @PrimaryColumn({ type: 'uuid' })
   id: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
