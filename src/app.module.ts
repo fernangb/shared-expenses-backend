@@ -15,6 +15,7 @@ import { IdentityModule } from './module/identity/identity.module';
     ExpenseModule,
     GroupModule,
     UserModule,
+    IdentityModule,
   ],
 })
 export class AppModule {}

@@ -28,8 +28,6 @@ export class FindGroupExpenseUseCase
 
     const expenses = await this.expenseRepository.findByGroupId(groupId);
 
-    console.log('expenses: ', expenses);
-
     return { expenses };
   }
 }

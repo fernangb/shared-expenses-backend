@@ -6,10 +6,7 @@ import { UserEntity } from '../../core/entity/user.entity';
 
 @Injectable()
 export class TypeOrmUserRepository extends DefaultTypeOrmRepository<UserEntity> {
-  constructor(
-    @InjectDataSource('identity')
-    dataSource: DataSource,
-  ) {
+  constructor(@InjectDataSource() dataSource: DataSource) {
     super(UserEntity, dataSource.manager);
   }
 
