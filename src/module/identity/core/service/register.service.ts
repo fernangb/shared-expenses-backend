@@ -1,4 +1,3 @@
-import { IBaseUseCase } from '../../../../shared/use-cases/base.use-case';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { TypeOrmUserRepository } from '../../database/typeorm/typeorm-user.repository';
 import HashService from 'src/module/shared/module/hash/hash.service';
@@ -6,15 +5,13 @@ import { UserEntity } from '../entity/user.entity';
 import { RegisterRequestDTO, RegisterResponseDTO } from '../dto/register.dto';
 
 @Injectable()
-export class RegisterService
-  implements IBaseUseCase<RegisterRequestDTO, RegisterResponseDTO>
-{
+export class RegisterService {
   constructor(
     private readonly repository: TypeOrmUserRepository,
     private readonly hashService: HashService,
   ) {}
 
-  async handle({
+  async execute({
     firstName,
     lastName,
     email,
